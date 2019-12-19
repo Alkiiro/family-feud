@@ -6,5 +6,3 @@ describe('Game', () => {
   expect(Game).to.be.a('function');
 });
 })
-
-export default Game;

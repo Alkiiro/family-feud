@@ -6,5 +6,3 @@ describe('PanicRound', () => {
   expect(PanicRound).to.be.a('function');
 });
 })
-
-export default PanicRound;

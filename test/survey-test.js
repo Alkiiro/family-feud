@@ -6,5 +6,3 @@ describe('Survey', () => {
   expect(Survey).to.be.a('function');
 });
 })
-
-export default Survey;
