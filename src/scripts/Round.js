@@ -1,7 +1,4 @@
 import $ from 'jquery';
-import Player from './scripts/Player.js';
-import Survey from './scripts/Survey.js';
-
 
 class Round {
   constructor(survey, answer) {
@@ -12,9 +9,9 @@ class Round {
     this.guessFlag = true;
   }
   takeTurn() {
-    // based upon evaluation of player.checkGuess(), reassign this.guessFlag
+    // based upon evaluation of survey.checkGuess(), reassign this.guessFlag
     if (this.currentPlayer === 1) {
-      // allow player1 to t
+      // allow player1 to to take a turn
     };
   }
   startRound() {
