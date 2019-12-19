@@ -9,34 +9,39 @@ import Survey from '../src/scripts/Survey.js';
 
 
 describe('Round', () => {
+  let data
   let round
+  let survey
+  let turn
   let player1
   let player2
-  let survey
-  let answer
+  let playerGuess
   beforeEach(() => {
-    survey = {
-      id: 1,
-      question: "If You Drew Homer Simpson’s Name In A Secret Santa Exchange, What Would You Buy Him?"
-    };
+    data = {
+        surveys: [{
+          id: 1,
+          question: 'If You Drew Homer Simpson’s Name In A Secret Santa Exchange, What Would You Buy Him?'
+        }, ],
+        answers: [{
+            answer: 'Beer',
+            respondents: 67,
+            surveyId: 1
+          },
+          {
+            answer: 'Bowling Ball',
+            respondents: 5,
+            surveyId: 1
+          },
+          {
+            answer: 'Donuts',
+            respondents: 24,
+            surveyId: 1
+          },
+        ]
+      };
 
-    answer = [{
-    answer: "Beer",
-    respondents: 67,
-    surveyId: 1
-    },
-    {
-    answer: "Bowling Ball",
-    respondents: 5,
-    surveyId: 1
-    },
-    {
-    answer: "Donuts",
-    respondents: 24,
-    surveyId: 1
-    }];
-
-    round = new Round(survey, answer);
+    survey = new Survey(data);
+    round = new Round(survey);
     player1 = new Player('Lenny', 1);
     player2 = new Player('Tom', 2);
   });
@@ -45,8 +50,8 @@ describe('Round', () => {
     expect(Round).to.be.a('function');
   });
   describe('Default Values:', () => {
-    it('Should take in one survey object', () => {
-      expect(round.survey).to.be.an('object');
+    it('Should take in one survey', () => {
+      expect(round.survey).to.be.an('string');
     });
 
     it('Should take in an array of answers', () => {
@@ -62,13 +67,15 @@ describe('Round', () => {
     });
 
     it('Should default its guessFlag to true', () => {
-      expect(round.guessFlag).to.eql(true);
+      expect(round.guessFlag).to.eql(undefined);
     });
   })
 
   describe('Method Values:', () => {
     it('A player should be able to take a turn on their turn only', () => {
-      expect(round.takeTurn()).to.eql(false);
+      playerGuess = 'Beer';
+      turn = survey.checkGuess(playerGuess);
+      expect(round.takeTurn(player1, turn)).to.eql(false);
     });
   })
 })
