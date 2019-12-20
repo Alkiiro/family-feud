@@ -12,10 +12,12 @@ describe('Round', () => {
   let data
   let round
   let survey
-  let turn
   let player1
   let player2
+  let players
   let playerGuess
+  let guessResult
+
   beforeEach(() => {
     data = {
         surveys: [{
@@ -41,9 +43,10 @@ describe('Round', () => {
       };
 
     survey = new Survey(data);
-    round = new Round(survey);
+    round = new Round(survey, players);
     player1 = new Player('Lenny', 1);
     player2 = new Player('Tom', 2);
+    players = [player1, player2];
   });
 
   it('Should be a function', () => {
@@ -66,16 +69,17 @@ describe('Round', () => {
       expect(round.currentPlayer).to.eql(1);
     });
 
-    it('Should default its guessFlag to true', () => {
-      expect(round.guessFlag).to.eql(undefined);
+    it('Should default its guessFlag to false', () => {
+      expect(round.guessFlag).to.eql(false);
     });
   })
 
   describe('Method Values:', () => {
     it('A player should be able to take a turn on their turn only', () => {
-      playerGuess = 'Beer';
-      turn = survey.checkGuess(playerGuess);
-      expect(round.takeTurn(player1, turn)).to.eql(false);
+      playerGuess = 'Soda';
+      guessResult = survey.checkGuess(playerGuess);
+      round.takeTurn(guessResult);
+      expect(round.currentPlayer).to.eql(2);
     });
   })
 })
