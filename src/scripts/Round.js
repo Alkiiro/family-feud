@@ -5,6 +5,7 @@ class Round {
     this.survey = survey.question;
     this.answers = survey.answers;
     this.totalSurvey = survey;
+    this.game = game;
     this.points = {player1: 0, player2: 0}
     this.currentPlayer = undefined;
     this.players = players;
@@ -23,12 +24,12 @@ class Round {
     }
   }
 
-  setStartingPlayer(roundCounter) {
-    this.currentPlayer = roundCounter
+  setStartingPlayer() {
+    this.currentPlayer = this.game.roundCounter
   }
 
-  startRound(roundCounter) {
-    setStartingPlayer(roundCounter);
+  startRound() {
+    setStartingPlayer();
     let newRound
     if (!game.usedSurveyIds.includes(this.totalSurvey.id)) {
       // need to instantiate new round parameters with values from API

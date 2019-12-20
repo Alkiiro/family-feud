@@ -85,7 +85,8 @@ describe('Round', () => {
       expect(round.currentPlayer).to.eql(2);
     });
 
-    it('Should start a new Round with a new survey each time', () => {
+    it.skip('Should start a new Round with a new survey each time', () => {
+      // game.startRound()
       expect(round.)
     });
   })
