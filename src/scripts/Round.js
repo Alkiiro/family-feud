@@ -1,14 +1,14 @@
-import $ from 'jquery';
+// import $ from 'jquery';
 
 class Round {
-  constructor(survey, players) {
+  constructor(survey, players, game) {
     this.survey = survey.question;
     this.answers = survey.answers;
+    this.totalSurvey = survey;
     this.points = {player1: 0, player2: 0}
-    this.currentPlayer = 1;
+    this.currentPlayer = undefined;
     this.players = players;
     this.guessFlag = false;
-    this.numTurns = 0;
   }
 
   takeTurn(guessResult) {
@@ -21,11 +21,19 @@ class Round {
       this.guessFlag = false;
       this.currentPlayer = player[0].playerNum;
     }
-    this.numTurns++
   }
 
-  startRound() {
-    // setStartingPlayer() sets this.currentPlayer to the game's round counter.
+  setStartingPlayer(roundCounter) {
+    this.currentPlayer = roundCounter
+  }
+
+  startRound(roundCounter) {
+    setStartingPlayer(roundCounter);
+    let newRound
+    if (!game.usedSurveyIds.includes(this.totalSurvey.id)) {
+      // need to instantiate new round parameters with values from API
+      newRound = new Round(survey, players, game);
+    }
   }
 }
 

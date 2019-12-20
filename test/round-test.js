@@ -1,6 +1,7 @@
 import chai from 'chai';
 const expect = chai.expect;
 
+import Game from '../src/scripts/Game.js';
 import Round from '../src/scripts/Round.js';
 import Player from '../src/scripts/Player.js';
 import Survey from '../src/scripts/Survey.js';
@@ -10,6 +11,7 @@ import Survey from '../src/scripts/Survey.js';
 
 describe('Round', () => {
   let data
+  let game
   let round
   let survey
   let player1
@@ -42,8 +44,9 @@ describe('Round', () => {
         ]
       };
 
+    // game = new Game()
     survey = new Survey(data);
-    round = new Round(survey, players);
+    round = new Round(survey, players, game);
     player1 = new Player('Lenny', 1);
     player2 = new Player('Tom', 2);
     players = [player1, player2];
@@ -66,7 +69,7 @@ describe('Round', () => {
     });
 
     it('Should default its currentPlayer to player1', () => {
-      expect(round.currentPlayer).to.eql(1);
+      expect(round.currentPlayer).to.eql(undefined);
     });
 
     it('Should default its guessFlag to false', () => {
@@ -75,11 +78,15 @@ describe('Round', () => {
   })
 
   describe('Method Values:', () => {
-    it('A player should be able to take a turn on their turn only', () => {
+    it('Should change the current player when the current player guesses incorrectly', () => {
       playerGuess = 'Soda';
       guessResult = survey.checkGuess(playerGuess);
       round.takeTurn(guessResult);
       expect(round.currentPlayer).to.eql(2);
+    });
+
+    it('Should start a new Round with a new survey each time', () => {
+      expect(round.)
     });
   })
 })

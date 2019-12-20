@@ -7,7 +7,7 @@ class Game {
     this.currentRound;
   }
   startRound() {
-
+    // round.startRound(this.currentRound)
   }
   startPanicRound() {
 
@@ -16,7 +16,8 @@ class Game {
 
   }
   restartGame() {
-
+    // possibly rename this to just 'StartGame'
+    // should set this.currentRound to 1 upon game instantiation.
   }
   quitGame() {
 
