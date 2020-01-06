@@ -1,12 +1,18 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: #050505;
-$primary-color: #dfdfdf;
-$secondary-color: #971313;
+
+$primary-background: hsla(240, 9%, 4%, 100%);
+$primary-color: hsla(0, 0%, 87%, 100%);
+$secondary-color: hsla(0, 78%, 33%, 100%);
 $main-font: 'Rock Salt';
 @mixin columnFlexCenter() {
   align-items: center;
   display: flex;
   flex-flow: column nowrap;
+}
+
+@mixin focusColor() {
+    outline: none !important;
+    box-shadow: 0 0 1.5em $secondary-color;
+    // box-shadow: 0 0 10px #719ECE;
 }
 
 *,
@@ -18,44 +24,54 @@ $main-font: 'Rock Salt';
 }
 
 body {
-  background: center / cover no-repeat url("../images/hallway-with-window.jpg");
+  background: top / cover no-repeat url("../images/hallway-with-window.jpg");
+  width: 100%;
 }
+
 /* ********* HEADER ********* */
+
 header {
   background-color: $primary-background;
   color: $primary-color;
   font-family: 'Creepster';
   font-size: 2em;
   text-align: center;
+  h1 {
+    color: $secondary-color;
+  }
 }
 
-header h1 {
-  color: $secondary-color;
+nav {
+  div {
+    float: left;
+    padding: 0.5em;
+  }
+
+  ul {
+    list-style-type: none;
+  }
 }
 
-nav div {
-  float: left;
-  padding: 0.5em;
-}
 /* ********* MAIN CONTENT ********* */
+
 main {
   background-color: rgba(0, 0, 0, 0.5);
   color: $primary-color;
   font-family: $main-font;
 }
+
 /* ********* MAIN MENU SCREEN ********* */
+
 .main-menu {
   align-items: center;
   display: grid;
-  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: calc(100vh - 75px);
   text-align: center;
-  height: 90vh;
-  display: none;
 }
 
 .player-input {
-  display: flex;
-  flex-flow: column nowrap;
+  @include columnFlexCenter();
 }
 
 .input-wrapper {
@@ -70,34 +86,48 @@ main {
 .player2-wrapper {
   display: flex;
   flex-flow: column nowrap;
-  padding: 4em;
+  margin-bottom: 2.5em;
+  padding: 0 2em;
 }
 
 .player-input {
   background-color: $primary-color;
+  border-radius: 0.5em;
   font-size: 1em;
   font-family: $main-font;
-  width: 10em;
+  padding-left: .25em;
+  width: 15em;
+  &:focus {
+    @include focusColor();
+  }
 }
 
 .instruction-button,
 .player-button {
+  border: none;
+  border-radius: 1em;
+  cursor: pointer;
   justify-self: center;
   font-family: $main-font;
   font-size: 2em;
   padding: 0.5em;
   margin: 1em;
   width: 20em;
-}
-/* ********* INSTRUCTIONS SCREEN ********* */
-.instructions {
-  @include columnFlexCenter();
-  height: 90vh;
-  display: none;
+  &:hover {
+    @include focusColor();
+    background-color: darken($primary-color, 20%);
+  }
 }
 
-.instructions h2 {
-  padding: 1em;
+/* ********* INSTRUCTIONS SCREEN ********* */
+
+.instructions {
+  @include columnFlexCenter();
+  display: none;
+  height: calc(100vh - 75px);
+  h2 {
+    padding: 1em;
+  }
 }
 
 .instruction-content {
@@ -107,35 +137,63 @@ main {
 .instruction-content p {
   padding: 0.5em;
 }
+
 /* ********** GAME SCREEN ********** */
+
 .game-screen {
   display: grid;
   font-size: 1.25rem;
   grid-template-columns: 1fr 3fr 1fr;
-  height: 90vh;
-  // display: none;
+  height: calc(100vh - 75px);
+  display: none;
 }
 
 .player-screen {
   @include columnFlexCenter();
   justify-content: center;
+  * {
+    padding: 0.5em;
+  }
 }
 
-.player-screen > * {
-  padding: 0.5em;
+.player1-screen {
+  margin-left: 1em;
+  transform: skewY(13deg) translateY(-2em);
+}
+
+.player2-screen {
+  margin-right: 1em;
+  transform: skewY(-13deg) translateY(-2em);
+}
+
+.player1-answer-input,
+.player2-answer-input {
+  border-radius: .25em;
+  font-size: 1em;
+  &:focus {
+    @include focusColor();
+  }
 }
 
 .wrong-guesses {
-  text-decoration: line-through;
+  color: $secondary-color;
+  font-size: 1.5em;
+  text-decoration-line: line-through;
+  text-decoration-style: double;
+  span {
+    color: $secondary-color;
+    span {
+      color: $primary-color;
+    }
+  }
 }
 
 .survey {
   @include columnFlexCenter();
-}
-
-.survey h2 {
-  margin-bottom: 1em;
-  padding: 1em;
+  h2 {
+    margin-bottom: 1em;
+    padding: 1em;
+  }
 }
 
 .survey-answer-wrapper {
@@ -144,12 +202,13 @@ main {
 }
 
 .survey-answer {
+  @include focusColor();
   align-items: center;
   background-color: #3f3f3f;
-  border: 1px solid red;
+  border-radius: 1em;
   display: flex;
   justify-content: space-between;
   margin: 1.5em;
-  padding: 0.5em;
-  width: 40%;
+  padding: 0.5em 1em;
+  width: 50%;
 }
